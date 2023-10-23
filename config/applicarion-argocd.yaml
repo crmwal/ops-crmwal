@@ -6,7 +6,7 @@ metadata:
 spec: 
   project: default
   source: 
-    repoURL: https://github.com/crmwal/crm_backend.git
+    repoURL: https://github.com/crmwal/ops-crmwal.git
     targetRevision: HEAD
     path: apps/argocd-kong
     directory: 
