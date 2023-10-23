@@ -1,0 +1,23 @@
+apiversion: argoproj.io/v1alpha1
+kind: application
+metadata:
+  name: argocd-kong
+  namespace: argocd-ns
+spec: 
+  project: default
+  source: 
+    repoURL: https://github.com/crmwal/crm_backend.git
+    targetRevision: HEAD
+    path: apps/argocd-kong
+    directory: 
+      recurse: true
+    desitanion: 
+      server:
+      namespace: argocd-ns
+    sincPolicy: 
+      sincOptions: 
+        - createNamespace=true
+    automated:
+      prune: true
+      alloEmpty: true
+      selfheal: true

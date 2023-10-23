@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kong-proxy
+spec:
+  selector:
+    matchLabels:
+      app: kong-proxy
+  template:
+    metadata:
+      labels:
+        app: kong-proxy
+    spec:
+      containers:
+      - name: kong-proxy
+        image: kong:3.0-ubuntu
+        envFrom:
+          - configMapRef:
+              name: cfg-kong
+        volumeMounts:
+          - name: cfg-declarative
+            mountPath: /etc/kong/kong.yml
+            subPath: kong.yml
+        resources: {}
+        ports:
+        - containerPort: 8000
+          name: http
+        - containerPort: 8443
+          name: https
+        - containerPort: 8001
+          name: http-admin
+        - containerPort: 8444
+          name: https-admin
+      volumes:
+      - name: cfg-declarative
+        configMap:
+          name: cfg-declarative
